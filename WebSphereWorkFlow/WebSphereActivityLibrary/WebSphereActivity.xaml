@@ -1,0 +1,120 @@
+﻿<Activity mc:Ignorable="sads sap" x:Class="WebSphereActivityLibrary.WebSphereActivity" this:WebSphereActivity.PartReOrderMessage="[&quot;&lt;?xml version=&quot;&quot;1.0&quot;&quot; encoding=&quot;&quot;utf-16&quot;&quot;?&gt;&lt;PartReorderMessage xmlns:xsi=&quot;&quot;http://www.w3.org/2001/XMLSchema-instance&quot;&quot; xmlns:xsd=&quot;&quot;http://www.w3.org/2001/XMLSchema&quot;&quot;&gt;&lt;Timestamp&gt;2014-04-28T12:21:57.8668055+05:30&lt;/Timestamp&gt;&lt;PartNumber&gt;101&lt;/PartNumber&gt;&lt;UID&gt;2&lt;/UID&gt;&lt;MessageType&gt;PartReorder&lt;/MessageType&gt;&lt;RouteColor&gt;Blue&lt;/RouteColor&gt;&lt;/PartReorderMessage&gt;&quot;]" this:WebSphereActivity.PartDeliveredMessage="[&quot;&lt;?xml version=&quot;&quot;1.0&quot;&quot; encoding=&quot;&quot;utf-16&quot;&quot;?&gt;&lt;PartDeliveredMessage xmlns:xsi=&quot;&quot;http://www.w3.org/2001/XMLSchema-instance&quot;&quot; xmlns:xsd=&quot;&quot;http://www.w3.org/2001/XMLSchema&quot;&quot;&gt;&lt;Timestamp&gt;2014-04-28T12:21:12.7932986+05:30&lt;/Timestamp&gt;&lt;PartNumber&gt;100&lt;/PartNumber&gt;&lt;UID&gt;1&lt;/UID&gt;&lt;MessageType&gt;PartDelivered&lt;/MessageType&gt;&lt;RouteColor&gt;Red&lt;/RouteColor&gt;&lt;/PartDeliveredMessage&gt;&quot;]" this:WebSphereActivity.QueueManagerName="queuemanager" this:WebSphereActivity.QueueName="omniIdQueue" this:WebSphereActivity.ChannelName="SYSTEM.ADMIN.SVRCONN" this:WebSphereActivity.HostName="192.168.10.221" this:WebSphereActivity.Port="1414" this:WebSphereActivity.UserName="jatin.kukreja" this:WebSphereActivity.Password="sdfsfdsf" this:WebSphereActivity.AnnounceState="4"
+ xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities"
+ xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+ xmlns:mv="clr-namespace:Microsoft.VisualBasic;assembly=System"
+ xmlns:mva="clr-namespace:Microsoft.VisualBasic.Activities;assembly=System.Activities"
+ xmlns:s="clr-namespace:System;assembly=mscorlib"
+ xmlns:s1="clr-namespace:System;assembly=System"
+ xmlns:s2="clr-namespace:System;assembly=System.Xml"
+ xmlns:s3="clr-namespace:System;assembly=System.Core"
+ xmlns:s4="clr-namespace:System;assembly=System.ServiceModel"
+ xmlns:sa="clr-namespace:System.Activities;assembly=System.Activities"
+ xmlns:sad="clr-namespace:System.Activities.Debugger;assembly=System.Activities"
+ xmlns:sads="http://schemas.microsoft.com/netfx/2010/xaml/activities/debugger"
+ xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation"
+ xmlns:scg="clr-namespace:System.Collections.Generic;assembly=System"
+ xmlns:scg1="clr-namespace:System.Collections.Generic;assembly=System.ServiceModel"
+ xmlns:scg2="clr-namespace:System.Collections.Generic;assembly=System.Core"
+ xmlns:scg3="clr-namespace:System.Collections.Generic;assembly=mscorlib"
+ xmlns:sd="clr-namespace:System.Data;assembly=System.Data"
+ xmlns:sl="clr-namespace:System.Linq;assembly=System.Core"
+ xmlns:st="clr-namespace:System.Text;assembly=mscorlib"
+ xmlns:this="clr-namespace:WebSphereActivityLibrary"
+ xmlns:wm="clr-namespace:WebSphereLib.Messages;assembly=WebSphereLib.Messages"
+ xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <x:Members>
+    <x:Property Name="PartReOrderMessage" Type="InArgument(x:String)" />
+    <x:Property Name="PartDeliveredMessage" Type="InArgument(x:String)" />
+    <x:Property Name="QueueManagerName" Type="InArgument(x:String)" />
+    <x:Property Name="QueueName" Type="InArgument(x:String)" />
+    <x:Property Name="ChannelName" Type="InArgument(x:String)" />
+    <x:Property Name="HostName" Type="InArgument(x:String)" />
+    <x:Property Name="Port" Type="InArgument(x:String)" />
+    <x:Property Name="UserName" Type="InArgument(x:String)" />
+    <x:Property Name="Password" Type="InArgument(x:String)" />
+    <x:Property Name="MessageStatus" Type="InArgument(x:Boolean)" />
+    <x:Property Name="AnnounceState" Type="InArgument(x:Int32)" />
+  </x:Members>
+  <sap:VirtualizedContainerService.HintSize>1248,1029</sap:VirtualizedContainerService.HintSize>
+  <mva:VisualBasic.Settings>Assembly references and imported namespaces for internal implementation</mva:VisualBasic.Settings>
+  <Sequence sad:XamlDebuggerXmlReader.FileName="c:\users\jatin.kukreja\documents\visual studio 2012\Projects\WebSphereWorkFlow\WebSphereActivityLibrary\WebSphereActivity.xaml" sap:VirtualizedContainerService.HintSize="1208,949">
+    <sap:WorkflowViewStateService.ViewState>
+      <scg3:Dictionary x:TypeArguments="x:String, x:Object">
+        <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+      </scg3:Dictionary>
+    </sap:WorkflowViewStateService.ViewState>
+    <InvokeMethod DisplayName="Connect" sap:VirtualizedContainerService.HintSize="1186,132" MethodName="ConnectMQ">
+      <InvokeMethod.Result>
+        <OutArgument x:TypeArguments="x:Boolean">[MessageStatus]</OutArgument>
+      </InvokeMethod.Result>
+      <InvokeMethod.TargetObject>
+        <InArgument x:TypeArguments="wm:MQManager">[New MQManager()]</InArgument>
+      </InvokeMethod.TargetObject>
+      <InArgument x:TypeArguments="x:String">[QueueManagerName]</InArgument>
+      <InArgument x:TypeArguments="x:String">[ChannelName]</InArgument>
+      <InArgument x:TypeArguments="x:String">[HostName]</InArgument>
+      <InArgument x:TypeArguments="x:String">[Port]</InArgument>
+      <InArgument x:TypeArguments="x:String">[UserName]</InArgument>
+      <InArgument x:TypeArguments="x:String">[Password]</InArgument>
+    </InvokeMethod>
+    <If Condition="[MessageStatus = True]" sap:VirtualizedContainerService.HintSize="1186,653">
+      <If.Then>
+        <If Condition="[AnnounceState = 2]" sap:VirtualizedContainerService.HintSize="950,505">
+          <If.Then>
+            <InvokeMethod DisplayName="Reorder Message" sap:VirtualizedContainerService.HintSize="218,132" MethodName="WriteLocalQMsg">
+              <InvokeMethod.Result>
+                <OutArgument x:TypeArguments="x:Boolean">[MessageStatus]</OutArgument>
+              </InvokeMethod.Result>
+              <InvokeMethod.TargetObject>
+                <InArgument x:TypeArguments="wm:MQManager">[New MQManager()]</InArgument>
+              </InvokeMethod.TargetObject>
+              <InArgument x:TypeArguments="x:String">[QueueManagerName]</InArgument>
+              <InArgument x:TypeArguments="x:String">[ChannelName]</InArgument>
+              <InArgument x:TypeArguments="x:String">[HostName]</InArgument>
+              <InArgument x:TypeArguments="x:String">[Port]</InArgument>
+              <InArgument x:TypeArguments="x:String">[UserName]</InArgument>
+              <InArgument x:TypeArguments="x:String">[Password]</InArgument>
+              <InArgument x:TypeArguments="x:String">[PartReOrderMessage]</InArgument>
+              <InArgument x:TypeArguments="x:String">[QueueName]</InArgument>
+            </InvokeMethod>
+          </If.Then>
+          <If.Else>
+            <If Condition="[AnnounceState = 4]" sap:VirtualizedContainerService.HintSize="707,357">
+              <If.Then>
+                <InvokeMethod DisplayName="Part Delivered Message" sap:VirtualizedContainerService.HintSize="218,132" MethodName="WriteLocalQMsg">
+                  <InvokeMethod.Result>
+                    <OutArgument x:TypeArguments="x:Boolean">[MessageStatus]</OutArgument>
+                  </InvokeMethod.Result>
+                  <InvokeMethod.TargetObject>
+                    <InArgument x:TypeArguments="wm:MQManager">[New MQManager()]</InArgument>
+                  </InvokeMethod.TargetObject>
+                  <InArgument x:TypeArguments="x:String">[QueueManagerName]</InArgument>
+                  <InArgument x:TypeArguments="x:String">[ChannelName]</InArgument>
+                  <InArgument x:TypeArguments="x:String">[HostName]</InArgument>
+                  <InArgument x:TypeArguments="x:String">[Port]</InArgument>
+                  <InArgument x:TypeArguments="x:String">[UserName]</InArgument>
+                  <InArgument x:TypeArguments="x:String">[Password]</InArgument>
+                  <InArgument x:TypeArguments="x:String">[PartDeliveredMessage]</InArgument>
+                  <InArgument x:TypeArguments="x:String">[QueueName]</InArgument>
+                </InvokeMethod>
+              </If.Then>
+              <If.Else>
+                <If Condition="[AnnounceState = 5]" sap:VirtualizedContainerService.HintSize="464,209">
+                  <If.Then>
+                    <WriteLine sap:VirtualizedContainerService.HintSize="211,61" Text="Send command failed email" />
+                  </If.Then>
+                  <If.Else>
+                    <WriteLine sap:VirtualizedContainerService.HintSize="211,61" Text="Send command failed email" />
+                  </If.Else>
+                </If>
+              </If.Else>
+            </If>
+          </If.Else>
+        </If>
+      </If.Then>
+      <If.Else>
+        <WriteLine DisplayName="Connection Error" sap:VirtualizedContainerService.HintSize="211,61" Text="Error Occured" />
+      </If.Else>
+    </If>
+  </Sequence>
+</Activity>

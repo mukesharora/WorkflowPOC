@@ -1,0 +1,107 @@
+﻿<Activity mc:Ignorable="sads sap" x:Class="WebSphereWorkFlow.WebSphereActivity"
+ xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities"
+ xmlns:local="clr-namespace:WebSphereWorkFlow"
+ xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+ xmlns:mv="clr-namespace:Microsoft.VisualBasic;assembly=System"
+ xmlns:mva="clr-namespace:Microsoft.VisualBasic.Activities;assembly=System.Activities"
+ xmlns:s="clr-namespace:System;assembly=mscorlib"
+ xmlns:s1="clr-namespace:System;assembly=System"
+ xmlns:s2="clr-namespace:System;assembly=System.Xml"
+ xmlns:s3="clr-namespace:System;assembly=System.Core"
+ xmlns:s4="clr-namespace:System;assembly=System.ServiceModel"
+ xmlns:sa="clr-namespace:System.Activities;assembly=System.Activities"
+ xmlns:sad="clr-namespace:System.Activities.Debugger;assembly=System.Activities"
+ xmlns:sads="http://schemas.microsoft.com/netfx/2010/xaml/activities/debugger"
+ xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation"
+ xmlns:scg="clr-namespace:System.Collections.Generic;assembly=System"
+ xmlns:scg1="clr-namespace:System.Collections.Generic;assembly=System.ServiceModel"
+ xmlns:scg2="clr-namespace:System.Collections.Generic;assembly=System.Core"
+ xmlns:scg3="clr-namespace:System.Collections.Generic;assembly=mscorlib"
+ xmlns:sd="clr-namespace:System.Data;assembly=System.Data"
+ xmlns:sl="clr-namespace:System.Linq;assembly=System.Core"
+ xmlns:st="clr-namespace:System.Text;assembly=mscorlib"
+ xmlns:wm="clr-namespace:WebSphereLib.Messages;assembly=WebSphereLib.Messages"
+ xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <x:Members>
+    <x:Property Name="AnnounceInfo" Type="InArgument(local:Announce)" />
+    <x:Property Name="PartReOrderMessage" Type="InArgument(x:String)" />
+    <x:Property Name="PartDeliveredMessage" Type="InArgument(x:String)" />
+  </x:Members>
+  <sap:VirtualizedContainerService.HintSize>1248,1029</sap:VirtualizedContainerService.HintSize>
+  <mva:VisualBasic.Settings>Assembly references and imported namespaces for internal implementation</mva:VisualBasic.Settings>
+  <Sequence sad:XamlDebuggerXmlReader.FileName="c:\users\jatin.kukreja\documents\visual studio 2012\Projects\WebSphereWorkFlow\WebSphereWorkFlow\WebSphereActivity.xaml" sap:VirtualizedContainerService.HintSize="1208,949">
+    <Sequence.Variables>
+      <Variable x:TypeArguments="x:String" Default="queuemanager" Name="QueueManagerName" />
+      <Variable x:TypeArguments="x:String" Default="omniIdQueue" Name="QueueName" />
+      <Variable x:TypeArguments="x:String" Default="SYSTEM.ADMIN.SVRCONN/TCP/192.168.10.221(1414)" Name="ChannelInfo" />
+      <Variable x:TypeArguments="wm:MQMessageStatus" Name="MessageStatus" />
+      <Variable x:TypeArguments="wm:MQManager" Default="[New MQManager()]" Name="MQManager" />
+    </Sequence.Variables>
+    <sap:WorkflowViewStateService.ViewState>
+      <scg3:Dictionary x:TypeArguments="x:String, x:Object">
+        <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+      </scg3:Dictionary>
+    </sap:WorkflowViewStateService.ViewState>
+    <InvokeMethod DisplayName="Connect" sap:VirtualizedContainerService.HintSize="1186,132" MethodName="ConnectMQ">
+      <InvokeMethod.Result>
+        <OutArgument x:TypeArguments="wm:MQMessageStatus">[MessageStatus]</OutArgument>
+      </InvokeMethod.Result>
+      <InvokeMethod.TargetObject>
+        <InArgument x:TypeArguments="wm:MQManager">[New MQManager()]</InArgument>
+      </InvokeMethod.TargetObject>
+      <InArgument x:TypeArguments="x:String">[QueueManagerName]</InArgument>
+      <InArgument x:TypeArguments="x:String">[ChannelInfo]</InArgument>
+    </InvokeMethod>
+    <If Condition="[MessageStatus.Status = True]" sap:VirtualizedContainerService.HintSize="1186,653">
+      <If.Then>
+        <If Condition="[AnnounceInfo.State = 2]" sap:VirtualizedContainerService.HintSize="950,505">
+          <If.Then>
+            <InvokeMethod DisplayName="Reorder Message" sap:VirtualizedContainerService.HintSize="218,132" MethodName="WriteLocalQMsg">
+              <InvokeMethod.Result>
+                <OutArgument x:TypeArguments="wm:MQMessageStatus">[MessageStatus]</OutArgument>
+              </InvokeMethod.Result>
+              <InvokeMethod.TargetObject>
+                <InArgument x:TypeArguments="wm:MQManager">[New MQManager()]</InArgument>
+              </InvokeMethod.TargetObject>
+              <InArgument x:TypeArguments="x:String">[QueueManagerName]</InArgument>
+              <InArgument x:TypeArguments="x:String">[ChannelInfo]</InArgument>
+              <InArgument x:TypeArguments="x:String">[PartReOrderMessage]</InArgument>
+              <InArgument x:TypeArguments="x:String">[QueueName]</InArgument>
+            </InvokeMethod>
+          </If.Then>
+          <If.Else>
+            <If Condition="[AnnounceInfo.State = 4]" sap:VirtualizedContainerService.HintSize="707,357">
+              <If.Then>
+                <InvokeMethod DisplayName="Part Delivered Message" sap:VirtualizedContainerService.HintSize="218,132" MethodName="WriteLocalQMsg">
+                  <InvokeMethod.Result>
+                    <OutArgument x:TypeArguments="wm:MQMessageStatus">[MessageStatus]</OutArgument>
+                  </InvokeMethod.Result>
+                  <InvokeMethod.TargetObject>
+                    <InArgument x:TypeArguments="wm:MQManager">[New MQManager()]</InArgument>
+                  </InvokeMethod.TargetObject>
+                  <InArgument x:TypeArguments="x:String">[QueueManagerName]</InArgument>
+                  <InArgument x:TypeArguments="x:String">[ChannelInfo]</InArgument>
+                  <InArgument x:TypeArguments="x:String">[PartDeliveredMessage]</InArgument>
+                  <InArgument x:TypeArguments="x:String">[QueueName]</InArgument>
+                </InvokeMethod>
+              </If.Then>
+              <If.Else>
+                <If Condition="[AnnounceInfo.State = 5]" sap:VirtualizedContainerService.HintSize="464,209">
+                  <If.Then>
+                    <WriteLine sap:VirtualizedContainerService.HintSize="211,61" Text="Send command failed email" />
+                  </If.Then>
+                  <If.Else>
+                    <WriteLine sap:VirtualizedContainerService.HintSize="211,61" Text="Send command failed email" />
+                  </If.Else>
+                </If>
+              </If.Else>
+            </If>
+          </If.Else>
+        </If>
+      </If.Then>
+      <If.Else>
+        <WriteLine DisplayName="Connection Error" sap:VirtualizedContainerService.HintSize="211,61" Text="[&quot;Error Occured : &quot; + MessageStatus.Message]" />
+      </If.Else>
+    </If>
+  </Sequence>
+</Activity>
