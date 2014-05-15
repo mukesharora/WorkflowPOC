@@ -1,0 +1,219 @@
+﻿<Activity mc:Ignorable="sads sap" x:Class="MSMQActivity.MSMQActivity" this:MSMQActivity.FilePath="C:\Files\WebSphereInfo.txt"
+ xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities"
+ xmlns:c="clr-namespace:Contract;assembly=Contract"
+ xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+ xmlns:mv="clr-namespace:Microsoft.VisualBasic;assembly=System"
+ xmlns:mva="clr-namespace:Microsoft.VisualBasic.Activities;assembly=System.Activities"
+ xmlns:s="clr-namespace:System;assembly=mscorlib"
+ xmlns:s1="clr-namespace:System;assembly=System"
+ xmlns:s2="clr-namespace:System;assembly=System.Xml"
+ xmlns:s3="clr-namespace:System;assembly=System.Core"
+ xmlns:sad="clr-namespace:System.Activities.Debugger;assembly=System.Activities"
+ xmlns:sads="http://schemas.microsoft.com/netfx/2010/xaml/activities/debugger"
+ xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation"
+ xmlns:scg="clr-namespace:System.Collections.Generic;assembly=System"
+ xmlns:scg1="clr-namespace:System.Collections.Generic;assembly=System.ServiceModel"
+ xmlns:scg2="clr-namespace:System.Collections.Generic;assembly=System.Core"
+ xmlns:scg3="clr-namespace:System.Collections.Generic;assembly=mscorlib"
+ xmlns:sd="clr-namespace:System.Data;assembly=System.Data"
+ xmlns:sl="clr-namespace:System.Linq;assembly=System.Core"
+ xmlns:st="clr-namespace:System.Text;assembly=mscorlib"
+ xmlns:this="clr-namespace:MSMQActivity"
+ xmlns:w="clr-namespace:WebSphereActivityLib;assembly=WebSphereActivityLib"
+ xmlns:wm="clr-namespace:WebSphereLib.Messages;assembly=WebSphereLib.Messages"
+ xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <x:Members>
+    <x:Property Name="FilePath" Type="InArgument(x:String)" />
+    <x:Property Name="AnnounceInfo" Type="InArgument(c:AnnounceRequest)" />
+  </x:Members>
+  <sap:VirtualizedContainerService.HintSize>2064,2189</sap:VirtualizedContainerService.HintSize>
+  <mva:VisualBasic.Settings>Assembly references and imported namespaces for internal implementation</mva:VisualBasic.Settings>
+  <Sequence sad:XamlDebuggerXmlReader.FileName="C:\Users\jatin.kukreja\Documents\Visual Studio 2012\Projects\WebSphereWorkFlow\MSMQActivity\MSMQActivity.xaml" sap:VirtualizedContainerService.HintSize="2024,2109">
+    <sap:WorkflowViewStateService.ViewState>
+      <scg3:Dictionary x:TypeArguments="x:String, x:Object">
+        <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+      </scg3:Dictionary>
+    </sap:WorkflowViewStateService.ViewState>
+    <Sequence sap:VirtualizedContainerService.HintSize="2002,1985">
+      <Sequence.Variables>
+        <Variable x:TypeArguments="wm:MQMessageStatus" Name="MessageStatus" />
+        <Variable x:TypeArguments="w:FileContent" Name="FileContent" />
+      </Sequence.Variables>
+      <sap:WorkflowViewStateService.ViewState>
+        <scg3:Dictionary x:TypeArguments="x:String, x:Object">
+          <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+        </scg3:Dictionary>
+      </sap:WorkflowViewStateService.ViewState>
+      <InvokeMethod DisplayName="Get Details" sap:VirtualizedContainerService.HintSize="1980,132" MethodName="ReadFile">
+        <InvokeMethod.Result>
+          <OutArgument x:TypeArguments="w:FileContent">[FileContent]</OutArgument>
+        </InvokeMethod.Result>
+        <InvokeMethod.TargetObject>
+          <InArgument x:TypeArguments="w:FileOperations">[New FileOperations()]</InArgument>
+        </InvokeMethod.TargetObject>
+        <InArgument x:TypeArguments="x:String">[FilePath]</InArgument>
+      </InvokeMethod>
+      <InvokeMethod DisplayName="Connect" sap:VirtualizedContainerService.HintSize="1980,132" MethodName="ConnectMQ">
+        <InvokeMethod.Result>
+          <OutArgument x:TypeArguments="wm:MQMessageStatus">[MessageStatus]</OutArgument>
+        </InvokeMethod.Result>
+        <InvokeMethod.TargetObject>
+          <InArgument x:TypeArguments="wm:MQManager">[New MQManager()]</InArgument>
+        </InvokeMethod.TargetObject>
+        <InArgument x:TypeArguments="x:String">[FileContent.QueueManagerName]</InArgument>
+        <InArgument x:TypeArguments="x:String">[FileContent.ChannelName]</InArgument>
+        <InArgument x:TypeArguments="x:String">[FileContent.HostName]</InArgument>
+        <InArgument x:TypeArguments="x:String">[FileContent.Port]</InArgument>
+        <InArgument x:TypeArguments="x:String">[FileContent.UserID]</InArgument>
+        <InArgument x:TypeArguments="x:String">[FileContent.Password]</InArgument>
+      </InvokeMethod>
+      <If Condition="[MessageStatus.Status = True]" sap:VirtualizedContainerService.HintSize="1980,1517">
+        <If.Then>
+          <Sequence sap:VirtualizedContainerService.HintSize="1744,1369">
+            <sap:WorkflowViewStateService.ViewState>
+              <scg3:Dictionary x:TypeArguments="x:String, x:Object">
+                <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+              </scg3:Dictionary>
+            </sap:WorkflowViewStateService.ViewState>
+            <If Condition="[AnnounceInfo IsNot Nothing]" sap:VirtualizedContainerService.HintSize="1722,1245">
+              <If.Then>
+                <If Condition="[AnnounceInfo.State = 2]" sap:VirtualizedContainerService.HintSize="1486,1097">
+                  <If.Then>
+                    <Sequence sap:VirtualizedContainerService.HintSize="486,801">
+                      <sap:WorkflowViewStateService.ViewState>
+                        <scg3:Dictionary x:TypeArguments="x:String, x:Object">
+                          <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                        </scg3:Dictionary>
+                      </sap:WorkflowViewStateService.ViewState>
+                      <InvokeMethod DisplayName="Reorder Message" sap:VirtualizedContainerService.HintSize="464,132" MethodName="WriteLocalQMsg">
+                        <InvokeMethod.Result>
+                          <OutArgument x:TypeArguments="wm:MQMessageStatus">[MessageStatus]</OutArgument>
+                        </InvokeMethod.Result>
+                        <InvokeMethod.TargetObject>
+                          <InArgument x:TypeArguments="wm:MQManager">[New MQManager()]</InArgument>
+                        </InvokeMethod.TargetObject>
+                        <InArgument x:TypeArguments="x:String">[FileContent.QueueManagerName]</InArgument>
+                        <InArgument x:TypeArguments="x:String">[FileContent.ChannelName]</InArgument>
+                        <InArgument x:TypeArguments="x:String">[FileContent.HostName]</InArgument>
+                        <InArgument x:TypeArguments="x:String">[FileContent.Port]</InArgument>
+                        <InArgument x:TypeArguments="x:String">[FileContent.UserID]</InArgument>
+                        <InArgument x:TypeArguments="x:String">[FileContent.Password]</InArgument>
+                        <InArgument x:TypeArguments="x:String">[FileContent.PartReOrderMessage]</InArgument>
+                        <InArgument x:TypeArguments="x:String">[FileContent.QueueName]</InArgument>
+                      </InvokeMethod>
+                      <If Condition="[MessageStatus.Status = True]" sap:VirtualizedContainerService.HintSize="464,505">
+                        <If.Then>
+                          <Sequence sap:VirtualizedContainerService.HintSize="240,357">
+                            <Sequence.Variables>
+                              <Variable x:TypeArguments="x:String" Name="MailSendStatus" />
+                            </Sequence.Variables>
+                            <sap:WorkflowViewStateService.ViewState>
+                              <scg3:Dictionary x:TypeArguments="x:String, x:Object">
+                                <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                              </scg3:Dictionary>
+                            </sap:WorkflowViewStateService.ViewState>
+                            <InvokeMethod DisplayName="Send Message" sap:VirtualizedContainerService.HintSize="218,132" MethodName="SendMailMessage">
+                              <InvokeMethod.Result>
+                                <OutArgument x:TypeArguments="x:String">[MailSendStatus]</OutArgument>
+                              </InvokeMethod.Result>
+                              <InvokeMethod.TargetObject>
+                                <InArgument x:TypeArguments="wm:SendMail">[New SendMail()]</InArgument>
+                              </InvokeMethod.TargetObject>
+                              <InArgument x:TypeArguments="x:String">[FileContent.ToAddress]</InArgument>
+                              <InArgument x:TypeArguments="x:String">[FileContent.FromAddress]</InArgument>
+                              <InArgument x:TypeArguments="x:String">[FileContent.Subject]</InArgument>
+                              <InArgument x:TypeArguments="x:String">[FileContent.Body]</InArgument>
+                              <InArgument x:TypeArguments="x:String">[FileContent.Host]</InArgument>
+                              <InArgument x:TypeArguments="x:Int32">[FileContent.MailPort]</InArgument>
+                              <InArgument x:TypeArguments="x:String">[FileContent.AddressDelimeter]</InArgument>
+                            </InvokeMethod>
+                            <WriteLine sap:VirtualizedContainerService.HintSize="218,61" Text="[MailSendStatus]" />
+                          </Sequence>
+                        </If.Then>
+                      </If>
+                    </Sequence>
+                  </If.Then>
+                  <If.Else>
+                    <If Condition="[AnnounceInfo.State = 4]" sap:VirtualizedContainerService.HintSize="975,949">
+                      <If.Then>
+                        <Sequence sap:VirtualizedContainerService.HintSize="486,801">
+                          <sap:WorkflowViewStateService.ViewState>
+                            <scg3:Dictionary x:TypeArguments="x:String, x:Object">
+                              <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                            </scg3:Dictionary>
+                          </sap:WorkflowViewStateService.ViewState>
+                          <InvokeMethod DisplayName="Part Delivered Message" sap:VirtualizedContainerService.HintSize="464,132" MethodName="WriteLocalQMsg">
+                            <InvokeMethod.Result>
+                              <OutArgument x:TypeArguments="wm:MQMessageStatus">[MessageStatus]</OutArgument>
+                            </InvokeMethod.Result>
+                            <InvokeMethod.TargetObject>
+                              <InArgument x:TypeArguments="wm:MQManager">[New MQManager()]</InArgument>
+                            </InvokeMethod.TargetObject>
+                            <InArgument x:TypeArguments="x:String">[FileContent.QueueManagerName]</InArgument>
+                            <InArgument x:TypeArguments="x:String">[FileContent.ChannelName]</InArgument>
+                            <InArgument x:TypeArguments="x:String">[FileContent.HostName]</InArgument>
+                            <InArgument x:TypeArguments="x:String">[FileContent.Port]</InArgument>
+                            <InArgument x:TypeArguments="x:String">[FileContent.UserID]</InArgument>
+                            <InArgument x:TypeArguments="x:String">[FileContent.Password]</InArgument>
+                            <InArgument x:TypeArguments="x:String">[FileContent.PartDeliveredMessage]</InArgument>
+                            <InArgument x:TypeArguments="x:String">[FileContent.QueueName]</InArgument>
+                          </InvokeMethod>
+                          <If Condition="[MessageStatus.Status = True]" sap:VirtualizedContainerService.HintSize="464,505">
+                            <If.Then>
+                              <Sequence sap:VirtualizedContainerService.HintSize="240,357">
+                                <Sequence.Variables>
+                                  <Variable x:TypeArguments="x:String" Name="MailSendStatus" />
+                                </Sequence.Variables>
+                                <sap:WorkflowViewStateService.ViewState>
+                                  <scg3:Dictionary x:TypeArguments="x:String, x:Object">
+                                    <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                                  </scg3:Dictionary>
+                                </sap:WorkflowViewStateService.ViewState>
+                                <InvokeMethod DisplayName="Send Message" sap:VirtualizedContainerService.HintSize="218,132" MethodName="SendMailMessage">
+                                  <InvokeMethod.Result>
+                                    <OutArgument x:TypeArguments="x:String">[MailSendStatus]</OutArgument>
+                                  </InvokeMethod.Result>
+                                  <InvokeMethod.TargetObject>
+                                    <InArgument x:TypeArguments="wm:SendMail">[New SendMail()]</InArgument>
+                                  </InvokeMethod.TargetObject>
+                                  <InArgument x:TypeArguments="x:String">[FileContent.ToAddress]</InArgument>
+                                  <InArgument x:TypeArguments="x:String">[FileContent.FromAddress]</InArgument>
+                                  <InArgument x:TypeArguments="x:String">[FileContent.Subject]</InArgument>
+                                  <InArgument x:TypeArguments="x:String">[FileContent.Body]</InArgument>
+                                  <InArgument x:TypeArguments="x:String">[FileContent.Host]</InArgument>
+                                  <InArgument x:TypeArguments="x:Int32">[FileContent.MailPort]</InArgument>
+                                  <InArgument x:TypeArguments="x:String">[FileContent.AddressDelimeter]</InArgument>
+                                </InvokeMethod>
+                                <WriteLine sap:VirtualizedContainerService.HintSize="218,61" Text="[MailSendStatus]" />
+                              </Sequence>
+                            </If.Then>
+                          </If>
+                        </Sequence>
+                      </If.Then>
+                      <If.Else>
+                        <If Condition="[AnnounceInfo.State = 5]" sap:VirtualizedContainerService.HintSize="464,209">
+                          <If.Then>
+                            <WriteLine sap:VirtualizedContainerService.HintSize="211,61" Text="Send command failed email" />
+                          </If.Then>
+                          <If.Else>
+                            <WriteLine sap:VirtualizedContainerService.HintSize="211,61" Text="Send command failed email" />
+                          </If.Else>
+                        </If>
+                      </If.Else>
+                    </If>
+                  </If.Else>
+                </If>
+              </If.Then>
+              <If.Else>
+                <WriteLine DisplayName="No Message" sap:VirtualizedContainerService.HintSize="211,61" Text="No Announce message in queue" />
+              </If.Else>
+            </If>
+          </Sequence>
+        </If.Then>
+        <If.Else>
+          <WriteLine DisplayName="Connection Error" sap:VirtualizedContainerService.HintSize="211,61" Text="[&quot;Error Occured : &quot; + MessageStatus.Message]" />
+        </If.Else>
+      </If>
+    </Sequence>
+  </Sequence>
+</Activity>

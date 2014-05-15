@@ -8,6 +8,7 @@ using System.Text;
 using System.Xml;
 using WebSphereLib.Messages;
 using Microsoft.VisualBasic.Activities;
+using CustomActivityTest;
 
 namespace WebSphereWorkFlow
 {
@@ -79,7 +80,9 @@ namespace WebSphereWorkFlow
 
             //WorkflowInvoker.Invoke(new WebSphereActivity(), announceInput);
             
-            WorkflowInvoker.Invoke(new WebSphereActivityLib.WebSphereActivity());
+            //WorkflowInvoker.Invoke(new WebSphereActivityLib.WebSphereActivity());
+
+            WorkflowInvoker.Invoke(new Activity1());
         }
     }
 }

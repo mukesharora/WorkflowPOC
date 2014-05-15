@@ -1,0 +1,141 @@
+﻿<Activity mc:Ignorable="sads sap" x:Class="CustomActivityTest.Activity1" this:Activity1.FilePath="C:\Files\WebSphereInfo.txt"
+ xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities"
+ xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+ xmlns:mv="clr-namespace:Microsoft.VisualBasic;assembly=System"
+ xmlns:mva="clr-namespace:Microsoft.VisualBasic.Activities;assembly=System.Activities"
+ xmlns:s="clr-namespace:System;assembly=mscorlib"
+ xmlns:s1="clr-namespace:System;assembly=System"
+ xmlns:s2="clr-namespace:System;assembly=System.Xml"
+ xmlns:s3="clr-namespace:System;assembly=System.Core"
+ xmlns:s4="clr-namespace:System;assembly=System.ServiceModel"
+ xmlns:sa="clr-namespace:System.Activities;assembly=System.Activities"
+ xmlns:sad="clr-namespace:System.Activities.Debugger;assembly=System.Activities"
+ xmlns:sads="http://schemas.microsoft.com/netfx/2010/xaml/activities/debugger"
+ xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation"
+ xmlns:scg="clr-namespace:System.Collections.Generic;assembly=System"
+ xmlns:scg1="clr-namespace:System.Collections.Generic;assembly=System.ServiceModel"
+ xmlns:scg2="clr-namespace:System.Collections.Generic;assembly=System.Core"
+ xmlns:scg3="clr-namespace:System.Collections.Generic;assembly=mscorlib"
+ xmlns:sd="clr-namespace:System.Data;assembly=System.Data"
+ xmlns:sl="clr-namespace:System.Linq;assembly=System.Core"
+ xmlns:st="clr-namespace:System.Text;assembly=mscorlib"
+ xmlns:this="clr-namespace:CustomActivityTest"
+ xmlns:w="clr-namespace:WebSphereActivityLib;assembly=WebSphereActivityLib"
+ xmlns:wm="clr-namespace:WebSphereLib.Messages;assembly=WebSphereLib.Messages"
+ xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <x:Members>
+    <x:Property Name="FilePath" Type="InArgument(x:String)" />
+  </x:Members>
+  <sap:VirtualizedContainerService.HintSize>673,1444</sap:VirtualizedContainerService.HintSize>
+  <mva:VisualBasic.Settings>Assembly references and imported namespaces for internal implementation</mva:VisualBasic.Settings>
+  <Sequence sad:XamlDebuggerXmlReader.FileName="C:\Users\jatin.kukreja\Documents\Visual Studio 2012\Projects\WebSphereWorkFlow\CustomActivityTest\Activity1.xaml" sap:VirtualizedContainerService.HintSize="633,1364">
+    <Sequence.Variables>
+      <Variable x:TypeArguments="w:FileContent" Name="FileContent" />
+      <Variable x:TypeArguments="wm:MQMessageStatus" Name="MessageStatus" />
+      <Variable x:TypeArguments="wm:ClsAnnounce" Name="AnnounceInfo" />
+    </Sequence.Variables>
+    <sap:WorkflowViewStateService.ViewState>
+      <scg3:Dictionary x:TypeArguments="x:String, x:Object">
+        <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+      </scg3:Dictionary>
+    </sap:WorkflowViewStateService.ViewState>
+    <InvokeMethod DisplayName="Get Data" sap:VirtualizedContainerService.HintSize="611,132" MethodName="ReadFile">
+      <InvokeMethod.Result>
+        <OutArgument x:TypeArguments="w:FileContent">[FileContent]</OutArgument>
+      </InvokeMethod.Result>
+      <InvokeMethod.TargetObject>
+        <InArgument x:TypeArguments="w:FileOperations">[New FileOperations()]</InArgument>
+      </InvokeMethod.TargetObject>
+      <InArgument x:TypeArguments="x:String">[FilePath]</InArgument>
+    </InvokeMethod>
+    <InvokeMethod DisplayName="Connect" sap:VirtualizedContainerService.HintSize="611,132" MethodName="ConnectMQ">
+      <InvokeMethod.Result>
+        <OutArgument x:TypeArguments="wm:MQMessageStatus">[MessageStatus]</OutArgument>
+      </InvokeMethod.Result>
+      <InvokeMethod.TargetObject>
+        <InArgument x:TypeArguments="wm:MQManager">[New MQManager()]</InArgument>
+      </InvokeMethod.TargetObject>
+      <InArgument x:TypeArguments="x:String">[FileContent.QueueManagerName]</InArgument>
+      <InArgument x:TypeArguments="x:String">[FileContent.ChannelName]</InArgument>
+      <InArgument x:TypeArguments="x:String">[FileContent.HostName]</InArgument>
+      <InArgument x:TypeArguments="x:String">[FileContent.Port]</InArgument>
+      <InArgument x:TypeArguments="x:String">[FileContent.UserID]</InArgument>
+      <InArgument x:TypeArguments="x:String">[FileContent.Password]</InArgument>
+    </InvokeMethod>
+    <If Condition="[MessageStatus.Status = True]" sap:VirtualizedContainerService.HintSize="611,896">
+      <If.Then>
+        <Sequence sap:VirtualizedContainerService.HintSize="486,748">
+          <sap:WorkflowViewStateService.ViewState>
+            <scg3:Dictionary x:TypeArguments="x:String, x:Object">
+              <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+            </scg3:Dictionary>
+          </sap:WorkflowViewStateService.ViewState>
+          <InvokeMethod DisplayName="Send reorder message" sap:VirtualizedContainerService.HintSize="464,132" MethodName="WriteLocalQMsg">
+            <InvokeMethod.Result>
+              <OutArgument x:TypeArguments="wm:MQMessageStatus">[MessageStatus]</OutArgument>
+            </InvokeMethod.Result>
+            <InvokeMethod.TargetObject>
+              <InArgument x:TypeArguments="wm:MQManager">[New MQManager()]</InArgument>
+            </InvokeMethod.TargetObject>
+            <InArgument x:TypeArguments="x:String">[FileContent.QueueManagerName]</InArgument>
+            <InArgument x:TypeArguments="x:String">[FileContent.ChannelName]</InArgument>
+            <InArgument x:TypeArguments="x:String">[FileContent.HostName]</InArgument>
+            <InArgument x:TypeArguments="x:String">[FileContent.Port]</InArgument>
+            <InArgument x:TypeArguments="x:String">[FileContent.UserID]</InArgument>
+            <InArgument x:TypeArguments="x:String">[FileContent.Password]</InArgument>
+            <InArgument x:TypeArguments="x:String">[FileContent.PartReOrderMessage]</InArgument>
+            <InArgument x:TypeArguments="x:String">[FileContent.QueueName]</InArgument>
+          </InvokeMethod>
+          <InvokeMethod DisplayName="Retrive Message" sap:VirtualizedContainerService.HintSize="464,132" MethodName="RetrieveMessagesFromRemoteQueue">
+            <InvokeMethod.Result>
+              <OutArgument x:TypeArguments="wm:ClsAnnounce">[AnnounceInfo]</OutArgument>
+            </InvokeMethod.Result>
+            <InvokeMethod.TargetObject>
+              <InArgument x:TypeArguments="wm:ClsMessageQueue">[New ClsMessageQueue()]</InArgument>
+            </InvokeMethod.TargetObject>
+            <InArgument x:TypeArguments="x:String">[FileContent.MessageQueueName]</InArgument>
+            <InArgument x:TypeArguments="wm:ClsAnnounce">[AnnounceInfo]</InArgument>
+          </InvokeMethod>
+          <If Condition="[AnnounceInfo IsNot Nothing]" sap:VirtualizedContainerService.HintSize="464,280">
+            <If.Then>
+              <InvokeMethod DisplayName="Send reorder message" sap:VirtualizedContainerService.HintSize="218,132" MethodName="WriteLocalQMsg">
+                <InvokeMethod.Result>
+                  <OutArgument x:TypeArguments="wm:MQMessageStatus">[MessageStatus]</OutArgument>
+                </InvokeMethod.Result>
+                <InvokeMethod.TargetObject>
+                  <InArgument x:TypeArguments="wm:MQManager">[New MQManager()]</InArgument>
+                </InvokeMethod.TargetObject>
+                <InArgument x:TypeArguments="x:String">[FileContent.QueueManagerName]</InArgument>
+                <InArgument x:TypeArguments="x:String">[FileContent.ChannelName]</InArgument>
+                <InArgument x:TypeArguments="x:String">[FileContent.HostName]</InArgument>
+                <InArgument x:TypeArguments="x:String">[FileContent.Port]</InArgument>
+                <InArgument x:TypeArguments="x:String">[FileContent.UserID]</InArgument>
+                <InArgument x:TypeArguments="x:String">[FileContent.Password]</InArgument>
+                <InArgument x:TypeArguments="x:String">[FileContent.PartReOrderMessage]</InArgument>
+                <InArgument x:TypeArguments="x:String">[FileContent.QueueName]</InArgument>
+              </InvokeMethod>
+            </If.Then>
+            <If.Else>
+              <InvokeMethod DisplayName="Send delivered message" sap:VirtualizedContainerService.HintSize="218,132" MethodName="WriteLocalQMsg">
+                <InvokeMethod.Result>
+                  <OutArgument x:TypeArguments="wm:MQMessageStatus">[MessageStatus]</OutArgument>
+                </InvokeMethod.Result>
+                <InvokeMethod.TargetObject>
+                  <InArgument x:TypeArguments="wm:MQManager">[New MQManager()]</InArgument>
+                </InvokeMethod.TargetObject>
+                <InArgument x:TypeArguments="x:String">[FileContent.QueueManagerName]</InArgument>
+                <InArgument x:TypeArguments="x:String">[FileContent.ChannelName]</InArgument>
+                <InArgument x:TypeArguments="x:String">[FileContent.HostName]</InArgument>
+                <InArgument x:TypeArguments="x:String">[FileContent.Port]</InArgument>
+                <InArgument x:TypeArguments="x:String">[FileContent.UserID]</InArgument>
+                <InArgument x:TypeArguments="x:String">[FileContent.Password]</InArgument>
+                <InArgument x:TypeArguments="x:String">[FileContent.PartDeliveredMessage]</InArgument>
+                <InArgument x:TypeArguments="x:String">[FileContent.QueueName]</InArgument>
+              </InvokeMethod>
+            </If.Else>
+          </If>
+        </Sequence>
+      </If.Then>
+    </If>
+  </Sequence>
+</Activity>
